@@ -780,7 +780,206 @@
       font-weight: 600;
     }
 
-    /* ─── INQUIRY FORM ────────────────────────────────────── */
+    /* ─── PROCESS ─────────────────────────────────────────── */
+    .process {
+      background: var(--off-white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* warm decorative wash */
+    .process::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 40% 30% at 90% 10%, rgba(244, 197, 66, 0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 35% 25% at 5% 80%, rgba(58, 125, 68, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .process .container { position: relative; z-index: 1; }
+
+    .process-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 5rem;
+    }
+
+    /* The path: vertical line with alternating cards */
+    .process-path {
+      position: relative;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    /* The dashed vertical line running down the center */
+    .process-path::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 30px;
+      bottom: 30px;
+      width: 0;
+      border-left: 3px dashed var(--secondary);
+      transform: translateX(-50%);
+      opacity: 0.55;
+      z-index: 0;
+    }
+
+    .process-step {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      z-index: 1;
+    }
+
+    .process-step:last-child { margin-bottom: 0; }
+
+    /* The circular numbered node in the center column */
+    .process-node {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--primary);
+      border: 4px solid var(--secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--secondary);
+      box-shadow:
+        0 0 0 6px var(--off-white),
+        0 8px 24px rgba(201, 50, 43, 0.25);
+      flex-shrink: 0;
+      position: relative;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .process-step:hover .process-node {
+      transform: scale(1.06);
+      box-shadow:
+        0 0 0 6px var(--off-white),
+        0 12px 32px rgba(201, 50, 43, 0.4);
+    }
+
+    /* Card content with arrow pointing toward the node */
+    .process-card {
+      background: #fff;
+      padding: 1.75rem 2rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 28px rgba(92, 45, 30, 0.12);
+      border: 1px solid rgba(92, 45, 30, 0.08);
+      position: relative;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .process-step:hover .process-card {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 38px rgba(92, 45, 30, 0.18);
+    }
+
+    /* Alternate sides: odd steps on left, even on right */
+    .process-step:nth-child(odd) .process-card {
+      grid-column: 1;
+      text-align: right;
+    }
+    .process-step:nth-child(odd) .process-card-spacer {
+      grid-column: 3;
+    }
+
+    .process-step:nth-child(even) .process-card {
+      grid-column: 3;
+      text-align: left;
+    }
+    .process-step:nth-child(even) .process-card-spacer {
+      grid-column: 1;
+    }
+
+    /* Triangular arrow on each card pointing to the node */
+    .process-card::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%) rotate(45deg);
+      width: 14px;
+      height: 14px;
+      background: #fff;
+      border-top: 1px solid rgba(92, 45, 30, 0.08);
+      border-right: 1px solid rgba(92, 45, 30, 0.08);
+    }
+
+    .process-step:nth-child(odd) .process-card::after {
+      right: -7px;
+    }
+    .process-step:nth-child(even) .process-card::after {
+      left: -7px;
+      transform: translateY(-50%) rotate(-135deg);
+    }
+
+    .process-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--secondary);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.005em;
+    }
+
+    .process-text {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--dark-taro);
+      opacity: 0.85;
+    }
+
+    /* Final flag/destination marker after step 6 */
+    .process-finish {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .process-finish-marker {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--secondary);
+      border: 4px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 6px var(--off-white), 0 8px 24px rgba(201, 50, 43, 0.3);
+    }
+
+    .process-finish-marker::before {
+      content: '';
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+
+    .process-finish-label {
+      margin-top: 1rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      font-style: italic;
+      color: var(--secondary);
+      letter-spacing: 0.02em;
+    }
+
+    /* ─── INQUIRY CTA ─────────────────────────────────────── */
     .inquiry {
       background: var(--primary);
       position: relative;
@@ -798,112 +997,20 @@
 
     .inquiry .container { position: relative; z-index: 1; }
 
-    .inquiry-header {
+    .inquiry-simple {
       text-align: center;
-      max-width: 700px;
-      margin: 0 auto 3rem;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
     }
 
-    .inquiry-header .section-eyebrow {
+    .inquiry-simple .section-eyebrow {
       background: var(--secondary);
       color: var(--primary);
     }
 
-    .inquiry-layout {
-      display: grid;
-      grid-template-columns: 1fr 1.5fr;
-      gap: 3rem;
-      align-items: start;
-    }
-
-    .inquiry-aside {
-      background: var(--secondary);
-      color: var(--off-white);
-      padding: 2.5rem 2rem;
-      border-radius: 14px;
-      box-shadow: var(--shadow);
-      position: sticky;
-      top: 100px;
-    }
-
-    .inquiry-aside h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
-      font-weight: 800;
-      margin-bottom: 1rem;
-      color: var(--primary);
-    }
-
-    .inquiry-aside p {
-      font-size: 0.95rem;
-      line-height: 1.7;
-      margin-bottom: 1.75rem;
-      opacity: 0.95;
-    }
-
-    .aside-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.85rem;
-    }
-
-    .aside-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      font-size: 0.92rem;
-      font-weight: 600;
-    }
-
-    .aside-list .check {
-      width: 24px; height: 24px;
-      flex-shrink: 0;
-      border-radius: 50%;
-      background: var(--primary);
-      color: var(--secondary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.75rem;
-      font-weight: 900;
-      margin-top: 1px;
-    }
-
-    /* form CTA card */
-    .form-embed {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-    }
-
-    .form-cta-card {
-      width: 100%;
-      max-width: 650px;
-      background: var(--off-white);
-      border-radius: 14px;
-      padding: 3rem 2.5rem;
-      box-shadow: 5px 5px 56px 0px rgba(0,0,0,0.25);
-      text-align: center;
-    }
-
-    .form-cta-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.7rem;
-      font-weight: 800;
-      color: var(--dark-taro);
-      margin-bottom: 0.75rem;
-    }
-
-    .form-cta-text {
-      font-size: 1rem;
-      line-height: 1.7;
-      color: var(--dark-taro);
-      opacity: 0.85;
-      margin-bottom: 2rem;
-      max-width: 460px;
-      margin-left: auto;
-      margin-right: auto;
+    .inquiry-simple .section-title {
+      margin-bottom: 2.5rem;
     }
 
     .form-cta-button {
@@ -934,14 +1041,7 @@
     .form-cta-button .arrow { transition: transform 0.2s; }
     .form-cta-button:hover .arrow { transform: translateX(4px); }
 
-    .form-cta-note {
-      font-size: 0.8rem;
-      color: var(--dark-taro);
-      opacity: 0.55;
-      margin-top: 1rem;
-    }
-
-    /* legacy form */
+    /* legacy form (unused) */
     .form-box {
       background: var(--off-white);
       padding: 2.75rem;
@@ -1180,8 +1280,22 @@
       .story-grid { grid-template-columns: 1fr; gap: 4rem; }
       .what-grid { grid-template-columns: 1fr; gap: 3rem; }
       .reasons-grid { grid-template-columns: repeat(2, 1fr); }
-      .inquiry-layout { grid-template-columns: 1fr; }
-      .inquiry-aside { position: static; }
+      /* Mobile path: line on the left, all cards stack right */
+      .process-path::before { left: 40px; transform: none; }
+      .process-step { grid-template-columns: 80px 1fr; gap: 1.25rem; margin-bottom: 2rem; }
+      .process-step:nth-child(odd) .process-card,
+      .process-step:nth-child(even) .process-card {
+        grid-column: 2;
+        text-align: left;
+      }
+      .process-step:nth-child(odd) .process-card::after,
+      .process-step:nth-child(even) .process-card::after {
+        left: -7px;
+        right: auto;
+        transform: translateY(-50%) rotate(-135deg);
+      }
+      .process-card-spacer { display: none; }
+      .process-finish { margin-left: 0; }
       .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
       .nav-links { display: none; }
       .nav-links.visible-cta { display: flex; }
@@ -1192,6 +1306,11 @@
       section { padding: 4rem 1.25rem; }
       nav { padding: 0.75rem 1rem; }
       .reasons-grid { grid-template-columns: 1fr; }
+      .process-node { width: 60px; height: 60px; font-size: 1.2rem; border-width: 3px; }
+      .process-path::before { left: 30px; }
+      .process-step { grid-template-columns: 60px 1fr; gap: 1rem; }
+      .process-card { padding: 1.25rem 1.4rem; }
+      .process-title { font-size: 1.1rem; }
       .form-row { grid-template-columns: 1fr; }
       .form-box { padding: 1.75rem 1.5rem; }
       .hero-actions { flex-direction: column; align-items: stretch; }
@@ -1215,7 +1334,8 @@
       <li><a href="#story">Our Story</a></li>
       <li><a href="#what">What is Kūlolo?</a></li>
       <li><a href="#why">Why Fundraise</a></li>
-      <li><a href="#inquiry" class="nav-cta">Start Your Fundraiser</a></li>
+      <li><a href="#process">The Process</a></li>
+      <li><a href="https://wkf.ms/3Of1uIo" target="_blank" rel="noopener" class="nav-cta">Reserve Your Fundraiser</a></li>
     </ul>
   </nav>
 
@@ -1240,8 +1360,8 @@
           and a recipe perfected over 50 years. The fundraiser your community will actually look forward to.
         </p>
         <div class="hero-actions">
-          <a href="#inquiry" class="btn-primary">
-            Start Your Fundraiser
+          <a href="https://wkf.ms/3Of1uIo" target="_blank" rel="noopener" class="btn-primary">
+            Reserve Your Fundraiser
             <span class="arrow">→</span>
           </a>
           <a href="#story" class="btn-ghost">Our Story</a>
@@ -1405,43 +1525,88 @@
     </div>
   </section>
 
-  <!-- INQUIRY FORM -->
-  <section class="inquiry" id="inquiry">
+  <!-- THE PROCESS -->
+  <section class="process" id="process">
     <div class="container">
-      <div class="inquiry-header fade-up">
-        <span class="section-eyebrow">Reserve My Fundraiser</span>
-        <h2 class="section-title">You're One <em>Step Away.</em></h2>
-        <p class="section-body" style="margin: 0 auto;">
-          Fill out the form and let's get your fundraiser on the calendar.
-        </p>
+      <div class="process-header fade-up">
+        <span class="section-eyebrow">The Process</span>
+        <h2 class="section-title">Simple by Design.<br><em>Rewarding by Nature.</em></h2>
       </div>
-      <div class="inquiry-layout">
-        <aside class="inquiry-aside fade-up">
-          <h3>What Happens Next?</h3>
-          <p>
-            We'll reach out within 1 to 2 business days to confirm your details and lock in your order.
-          </p>
-          <ul class="aside-list">
-            <li><span class="check">1</span> Submit your info</li>
-            <li><span class="check">2</span> We reach out to confirm</li>
-            <li><span class="check">3</span> We deliver, you collect</li>
-            <li><span class="check">4</span> Your organization wins</li>
-          </ul>
-        </aside>
-        <div class="form-embed fade-up delay-1">
-          <div class="form-cta-card">
-            <h3 class="form-cta-title">Reserve Your Fundraiser</h3>
-            <p class="form-cta-text">
-              Click below to open the inquiry form. It takes less than a minute,
-              and we'll be in touch within 1 to 2 business days.
-            </p>
-            <a href="https://wkf.ms/3Of1uIo" target="_blank" rel="noopener" class="form-cta-button">
-              Open the Inquiry Form
-              <span class="arrow">→</span>
-            </a>
-            <p class="form-cta-note">Opens in a new tab.</p>
+      <div class="process-path">
+
+        <div class="process-step fade-up">
+          <div class="process-card">
+            <h3 class="process-title">Submit Your Details</h3>
+            <p class="process-text">Fill out the inquiry form and tell us about your organization. We'll take it from there.</p>
+          </div>
+          <div class="process-node">01</div>
+          <div class="process-card-spacer"></div>
+        </div>
+
+        <div class="process-step fade-up">
+          <div class="process-card-spacer"></div>
+          <div class="process-node">02</div>
+          <div class="process-card">
+            <h3 class="process-title">We Confirm Your Fundraiser</h3>
+            <p class="process-text">We'll reach out within 1 to 2 business days to lock you in and answer any questions.</p>
           </div>
         </div>
+
+        <div class="process-step fade-up">
+          <div class="process-card">
+            <h3 class="process-title">Your Team Starts Selling</h3>
+            <p class="process-text">Share it with your supporters. Set your timeline. Kūlolo sells itself, your job is just to spread the word.</p>
+          </div>
+          <div class="process-node">03</div>
+          <div class="process-card-spacer"></div>
+        </div>
+
+        <div class="process-step fade-up">
+          <div class="process-card-spacer"></div>
+          <div class="process-node">04</div>
+          <div class="process-card">
+            <h3 class="process-title">Submit Your Final Order</h3>
+            <p class="process-text">When your selling period ends, tally up your orders and submit your total along with payment.</p>
+          </div>
+        </div>
+
+        <div class="process-step fade-up">
+          <div class="process-card">
+            <h3 class="process-title">We Get to Work</h3>
+            <p class="process-text">Every slab is made fresh to order. No shortcuts, no sitting on shelves. Just kūlolo made the right way.</p>
+          </div>
+          <div class="process-node">05</div>
+          <div class="process-card-spacer"></div>
+        </div>
+
+        <div class="process-step fade-up">
+          <div class="process-card-spacer"></div>
+          <div class="process-node">06</div>
+          <div class="process-card">
+            <h3 class="process-title">Delivery Day</h3>
+            <p class="process-text">We hand off your full order, fresh and ready. You distribute to your buyers and collect what your organization earned.</p>
+          </div>
+        </div>
+
+        <div class="process-finish fade-up">
+          <div class="process-finish-marker"></div>
+          <div class="process-finish-label">Your Goal, Reached.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- INQUIRY CTA -->
+  <section class="inquiry" id="inquiry">
+    <div class="container">
+      <div class="inquiry-simple fade-up">
+        <span class="section-eyebrow">Reserve Your Fundraiser</span>
+        <h2 class="section-title">Let's get your fundraiser <em>on the calendar.</em></h2>
+        <a href="https://wkf.ms/3Of1uIo" target="_blank" rel="noopener" class="form-cta-button">
+          Submit Details Here
+          <span class="arrow">→</span>
+        </a>
       </div>
     </div>
   </section>
@@ -1464,7 +1629,8 @@
           <li><a href="#story">Our Story</a></li>
           <li><a href="#what">What is Kūlolo?</a></li>
           <li><a href="#why">Why Fundraise</a></li>
-          <li><a href="#inquiry">Start a Fundraiser</a></li>
+          <li><a href="#process">The Process</a></li>
+          <li><a href="https://wkf.ms/3Of1uIo" target="_blank" rel="noopener">Reserve Your Fundraiser</a></li>
         </ul>
       </div>
       <div class="footer-col">
